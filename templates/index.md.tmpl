@@ -1,0 +1,25 @@
+---
+page_title: "Provider: Superlog"
+description: |-
+  {{ .Description | plainmarkdown | trimspace | prefixlines "  " }}
+---
+
+# Superlog Provider
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+{{ tffile "examples/provider/provider.tf" }}
+
+## Exporting existing configuration
+
+Superlog can write Terraform for objects you already have. Use **Copy as Terraform** on an alert, dashboard, or synthetic check, or export the whole workspace with the API:
+
+```shell
+curl -s -H "Authorization: Bearer $SUPERLOG_API_KEY" https://superlog.sh/api/v1/terraform | jq -r .hcl > superlog.tf
+```
+
+The export includes an `import` block for each object, so `terraform apply` adopts the existing objects instead of creating copies. Secret header values of synthetic checks become sensitive variables to set. Pass `alertIds`, `dashboardIds`, or `syntheticCheckIds` (comma-separated) to export only some objects.
+
+{{ .SchemaMarkdown | trimspace }}
